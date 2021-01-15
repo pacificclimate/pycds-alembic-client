@@ -1,0 +1,24 @@
+name: Docker Publishing
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish-local-pytest:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish to Registry
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.pcicdevops_at_dockerhub_username }}
+          password: ${{ secrets.pcicdevops_at_dockerhub_password }}
+          dockerfile: ./docker/local-postgres-9.5/Dockerfile
+          repository: pcic/pycds-alembic-client-local-postgres-9.5
+          tag_with_ref: true
