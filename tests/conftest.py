@@ -9,7 +9,10 @@ from alembic import command
 import alembic.config
 import alembic.command
 
+import importlib_resources
+
 import pycds
+import pycds.alembic
 
 
 @fixture(scope='session')
@@ -39,7 +42,14 @@ def base_engine(database_uri, schema_name):
 
 @fixture(scope='session')
 def alembic_script_location():
-    yield "/home/rglover/code/pycds/alembic"
+    """
+    This fixture extracts the filepath to the installed pycds Alembic content.
+    The filepath is typically like
+    `/usr/local/lib/python3.6/dist-packages/pycds/alembic`.
+    """
+    source = importlib_resources.files(pycds.alembic)
+    # print(f"alembic_script_location: {source}")
+    yield str(source)
 
 
 @fixture(scope='session')
