@@ -82,7 +82,7 @@ The GitHub Action docker-publish automatically builds the image.
 Pull it from Dockerhub:
 
 ```
-docker pull pcic/pycds-local-pytest
+docker pull pcic/pycds-alembic-client-local-postgres-9.5
 ```
 
 ## Run image (container)
